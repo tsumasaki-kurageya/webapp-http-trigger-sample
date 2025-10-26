@@ -1,0 +1,25 @@
+{
+  "name": "apiconnectormoc-dev",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+  "remoteUser": "vscode",
+  "postCreateCommand": "python3 -m pip install --no-cache-dir fastapi 'uvicorn[standard]'",
+  "forwardPorts": [7124, 5249, 44451, 8000],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-dotnettools.csharp",
+        "ms-python.python",
+        "ms-azuretools.vscode-docker",
+        "dbaeumer.vscode-eslint",
+        "dsznajder.es7-react-js-snippets",
+        "ms-python.black-formatter",
+        "openai.chatgpt",
+        "42Crunch.vscode-openapi",
+        "esbenp.prettier-vscode"
+      ]
+    }
+  }
+}

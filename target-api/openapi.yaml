@@ -1,0 +1,92 @@
+openapi: 3.1.0
+info:
+  title: target-api
+  version: 1.0.0
+  description: |
+    FastAPI ベースのシンプルなターゲット API。
+    ルートパスへの GET/POST リクエストと /plans への POST リクエストを受け取り、内容をログ出力した後に固定メッセージを返します。
+servers:
+  - url: http://localhost:8000
+    description: ローカル開発用
+paths:
+  /:
+    get:
+      summary: 接続確認
+      description: リクエスト情報をログに出力し、設定完了メッセージを返します。
+      operationId: getRoot
+      responses:
+        "200":
+          description: 正常応答
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StatusResponse"
+              examples:
+                success:
+                  value:
+                    message: Settings OK.
+    post:
+      summary: 接続確認 (POST)
+      description: |
+        リクエストボディを含む任意の POST リクエストを受け付け、内容をログに出力した後、固定メッセージを返します。
+      operationId: postRoot
+      requestBody:
+        description: 任意の JSON ペイロード
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+            example:
+              sampleKey: sampleValue
+      responses:
+        "200":
+          description: 正常応答
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StatusResponse"
+              examples:
+                success:
+                  value:
+                    message: Settings OK.
+  /plans:
+    post:
+      summary: プラン登録リクエスト
+      description: |
+        任意のプラン情報を受け取り、処理の一環として 1 秒待機した後に固定メッセージを返します。
+      operationId: postPlans
+      requestBody:
+        description: 任意の JSON ペイロード
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+            example:
+              planId: "12345"
+              name: サンプルプラン
+      responses:
+        "200":
+          description: 正常応答
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StatusResponse"
+              examples:
+                success:
+                  value:
+                    message: Settings OK.
+components:
+  schemas:
+    StatusResponse:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          description: 固定メッセージ
+          example: Settings OK.
